@@ -1,6 +1,6 @@
 # CSD — Custom Software Development
 
-A Claude Code skill framework for structured software development that follows a natural workflow: research freely, plan from knowledge, execute with discipline.
+A meta-prompting framework that fits my mental model and workflow: research freely, plan from knowledge, execute with discipline. Other meta-prompting frameworks don't give the research portion as much freedom and attention as I prefer.
 
 ## Commands
 
