@@ -1,21 +1,21 @@
 ---
-name: csd-execute
+name: mmpf-execute
 description: >
-  Execute a phase from the CSD plan. Implements tasks with atomic commits,
+  Execute a phase from the MMPF plan. Implements tasks with atomic commits,
   TDD when appropriate, and subagent delegation. Writes DONE.md with
   verification results on completion. Updates CLAUDE.md and /docs when
   appropriate. Trigger: "let's execute", "start phase", "build it",
-  "/csd-execute".
+  "/mmpf-execute".
 ---
 
-# /csd-execute — Execute with Discipline
+# /mmpf-execute — Execute with Discipline
 
 Run a phase from the plan with traceability and best practices.
 
 ## Prerequisites
 
-- `.csd/STATE.md` must exist with `stage: executing` or `planning`
-- At least one phase must have a PLAN.md in `.csd/phases/`
+- `.mmpf/STATE.md` must exist with `stage: executing` or `planning`
+- At least one phase must have a PLAN.md in `.mmpf/phases/`
 
 ## Steps
 
@@ -30,8 +30,8 @@ If the user specifies a phase number, use that. Otherwise:
 ### 2. Load phase context
 
 Read the phase's PLAN.md. Also read:
-- `.csd/REQUIREMENTS.md` for the requirements this phase covers
-- `.csd/RESEARCH.md` for relevant context and decisions
+- `.mmpf/REQUIREMENTS.md` for the requirements this phase covers
+- `.mmpf/RESEARCH.md` for relevant context and decisions
 - DONE.md files from dependency phases for what's already built
 - The project's CLAUDE.md for project conventions
 
@@ -39,7 +39,7 @@ Present a brief summary: "Executing Phase N: <name>. <goal>. <task count> tasks.
 
 ### 3. Update state
 
-Update `.csd/STATE.md`:
+Update `.mmpf/STATE.md`:
 - `stage`: `executing`
 - `phase`: the phase number
 - `updated`: today's date
@@ -72,7 +72,7 @@ For each task in the PLAN.md:
 
 ### 5. Write DONE.md
 
-When all tasks are complete (or the phase is being closed), create `.csd/phases/NN-name/DONE.md`:
+When all tasks are complete (or the phase is being closed), create `.mmpf/phases/NN-name/DONE.md`:
 
 - List what was built
 - Check each truth from PLAN.md — verified or not, and how
@@ -100,9 +100,9 @@ Only update these when genuinely appropriate. Do not add temporal entries ("we c
 
 ### 8. Advance state
 
-Update `.csd/STATE.md`:
+Update `.mmpf/STATE.md`:
 - If more phases remain: set Next Step to the next phase
-- If all phases are done: set `stage: executing` with Next Step suggesting `/csd-complete`
+- If all phases are done: set `stage: executing` with Next Step suggesting `/mmpf-complete`
 - Update the Context section with key decisions or outcomes from this phase
 
 ## Principles

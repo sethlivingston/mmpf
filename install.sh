@@ -13,7 +13,7 @@ fi
 mkdir -p "$SKILLS_DST"
 
 installed=0
-for skill_dir in "$SKILLS_SRC"/csd-*; do
+for skill_dir in "$SKILLS_SRC"/mmpf-*; do
   skill_name="$(basename "$skill_dir")"
   target="$SKILLS_DST/$skill_name"
 
@@ -24,4 +24,4 @@ for skill_dir in "$SKILLS_SRC"/csd-*; do
 done
 
 echo ""
-echo "Done. $installed CSD skills installed to $SKILLS_DST"
+echo "Done. $installed MMPF skills installed to $SKILLS_DST"

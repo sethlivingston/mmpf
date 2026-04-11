@@ -1,27 +1,27 @@
 ---
-name: csd-plan
+name: mmpf-plan
 description: >
   Derive requirements from research and create a phased execution plan. Use
   after research is complete (or sufficient) to crystallize what we learned
   into actionable work. Creates REQUIREMENTS.md and per-phase PLAN.md files
   with verifiable truths. Trigger: "let's plan", "ready to plan", "create a
-  plan", "/csd-plan".
+  plan", "/mmpf-plan".
 ---
 
-# /csd-plan — Plan from Knowledge
+# /mmpf-plan — Plan from Knowledge
 
 Derive requirements from research findings and create a phased plan.
 
 ## Prerequisites
 
-- `.csd/STATE.md` must exist
-- `.csd/RESEARCH.md` should exist with findings (warn if empty, but allow planning without it)
+- `.mmpf/STATE.md` must exist
+- `.mmpf/RESEARCH.md` should exist with findings (warn if empty, but allow planning without it)
 
 ## Steps
 
 ### 1. Review research
 
-Read `.csd/RESEARCH.md` and `.csd/STATE.md`.
+Read `.mmpf/RESEARCH.md` and `.mmpf/STATE.md`.
 
 Summarize what we know:
 - Key findings and decisions made during research
@@ -48,7 +48,7 @@ What would you add, remove, or change?
 ```
 
 Iterate until the user is satisfied. Then:
-- Write `.csd/REQUIREMENTS.md` with categorized requirement IDs
+- Write `.mmpf/REQUIREMENTS.md` with categorized requirement IDs
 - Include an Out of Scope section for things explicitly excluded
 - Include a Traceability table (phases filled in during step 3)
 
@@ -66,7 +66,7 @@ For each phase, determine:
 
 Present the phase breakdown to the user for feedback. Iterate if needed.
 
-Then for each phase, create `.csd/phases/NN-name/PLAN.md` with:
+Then for each phase, create `.mmpf/phases/NN-name/PLAN.md` with:
 - Frontmatter: phase number, name, requirements, dependencies
 - Goal
 - Truths (verifiable assertions — these drive verification in DONE.md)
@@ -86,11 +86,11 @@ Report any gaps to the user.
 
 ### 5. Update state
 
-Update `.csd/STATE.md`:
+Update `.mmpf/STATE.md`:
 - `stage`: `planning` (or `executing` if plan is approved and user wants to start)
 - `updated`: today's date
 - Current Focus: summary of the plan
-- Next Step: "Run `/csd-execute` to begin phase 1" (or whichever phase is first)
+- Next Step: "Run `/mmpf-execute` to begin phase 1" (or whichever phase is first)
 
 ## Principles
 

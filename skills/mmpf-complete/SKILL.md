@@ -1,13 +1,13 @@
 ---
-name: csd-complete
+name: mmpf-complete
 description: >
-  Complete the current CSD project. Archives artifacts for reference, resets
+  Complete the current MMPF project. Archives artifacts for reference, resets
   state for the next project. Can be used to finish a successful project or
   to close one early. Trigger: "we're done", "complete the project", "wrap up",
-  "close this project", "/csd-complete".
+  "close this project", "/mmpf-complete".
 ---
 
-# /csd-complete — Finish and Reset
+# /mmpf-complete — Finish and Reset
 
 Complete the current project and archive its artifacts.
 
@@ -15,7 +15,7 @@ Complete the current project and archive its artifacts.
 
 ### 1. Check for active project
 
-Read `.csd/STATE.md`. If it doesn't exist or `stage` is `complete`:
+Read `.mmpf/STATE.md`. If it doesn't exist or `stage` is `complete`:
 - Tell the user there's no active project to complete
 - Stop here
 
@@ -38,7 +38,7 @@ If the project is incomplete (not all phases done), note this without judgment. 
 
 ### 3. Archive
 
-Create `.csd/archive/<YYYY-MM-DD>-<project-name>/` and move into it:
+Create `.mmpf/archive/<YYYY-MM-DD>-<project-name>/` and move into it:
 - `STATE.md`
 - `RESEARCH.md`
 - `REQUIREMENTS.md`
@@ -49,7 +49,7 @@ Do NOT archive `BACKLOG.md` — it persists across projects.
 
 ### 4. Reset state
 
-Write a fresh `.csd/STATE.md`:
+Write a fresh `.mmpf/STATE.md`:
 
 ```markdown
 ---
@@ -69,15 +69,15 @@ Last project "<name>" completed on <date>.
 
 ## Next Step
 
-Run `/csd-start` to begin a new project, or `/csd-backlog` to review ideas.
+Run `/mmpf-start` to begin a new project, or `/mmpf-backlog` to review ideas.
 ```
 
 ### 5. Summary
 
 Tell the user:
-- The project has been archived to `.csd/archive/<dir>/`
+- The project has been archived to `.mmpf/archive/<dir>/`
 - Mention any backlog items if they exist
-- Suggest `/csd-start` or `/csd-backlog` as next steps
+- Suggest `/mmpf-start` or `/mmpf-backlog` as next steps
 
 ## Notes
 

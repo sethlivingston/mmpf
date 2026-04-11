@@ -1,36 +1,36 @@
 ---
-name: csd-start
+name: mmpf-start
 description: >
-  Start a new CSD project and enter freeform research mode. Use when beginning
-  a new initiative, feature, or investigation. Creates the .csd/ directory and
+  Start a new MMPF project and enter freeform research mode. Use when beginning
+  a new initiative, feature, or investigation. Creates the .mmpf/ directory and
   STATE.md, then opens an unstructured research session where you explore,
   experiment, and accumulate findings. Trigger: "let's start a new project",
-  "I want to research", "new csd project", "/csd-start".
+  "I want to research", "new mmpf project", "/mmpf-start".
 ---
 
-# /csd-start — Start a New Project
+# /mmpf-start — Start a New Project
 
-Start a new CSD project and enter freeform research mode.
+Start a new MMPF project and enter freeform research mode.
 
 ## Steps
 
 ### 1. Check for existing project
 
-Read `.csd/STATE.md`. If it exists and `stage` is not `complete`:
+Read `.mmpf/STATE.md`. If it exists and `stage` is not `complete`:
 - Tell the user there's an active project and show its name and stage
-- Ask if they want to `/csd-complete` it first or abandon it
+- Ask if they want to `/mmpf-complete` it first or abandon it
 - Do not proceed until resolved
 
 ### 2. Get project name
 
 Ask the user: "What are we working on?" Accept a short name and a brief description. Keep it conversational — one question, not a form.
 
-### 3. Initialize .csd/ directory
+### 3. Initialize .mmpf/ directory
 
 Create the directory structure:
 
 ```
-.csd/
+.mmpf/
 ├── STATE.md
 ├── RESEARCH.md
 ├── experiments/
@@ -55,9 +55,9 @@ Write `RESEARCH.md` with the project name as the title and empty sections for Fi
 Tell the user: the project is set up and we're in research mode. Explain what this means:
 - This is freeform — direct the research however you want
 - Ask me to look things up, read docs, explore the codebase, or try experiments
-- Findings accumulate in `.csd/RESEARCH.md`
-- Experiments (scripts, pseudocode, prototypes) go in `.csd/experiments/`
-- When you feel you understand the problem well enough, run `/csd-plan`
+- Findings accumulate in `.mmpf/RESEARCH.md`
+- Experiments (scripts, pseudocode, prototypes) go in `.mmpf/experiments/`
+- When you feel you understand the problem well enough, run `/mmpf-plan`
 
 Then ask: "Where do you want to start?"
 
@@ -75,7 +75,7 @@ While in research mode (STATE.md stage is `research`), follow these principles:
 
 This keeps the main conversation context clean and focused.
 
-**Accumulate findings.** After each research activity, update `.csd/RESEARCH.md`:
+**Accumulate findings.** After each research activity, update `.mmpf/RESEARCH.md`:
 - Add findings under relevant topic headings
 - Tag confidence: [VERIFIED], [CITED], or [ASSUMED]
 - Record experiment results with goal/approach/result/takeaway
@@ -83,7 +83,7 @@ This keeps the main conversation context clean and focused.
 - Note open questions
 
 **Support experiments.** When the user wants to try something:
-- Write scripts, pseudocode, or prototypes to `.csd/experiments/`
+- Write scripts, pseudocode, or prototypes to `.mmpf/experiments/`
 - These are throwaway — they exist to learn, not to ship
 - Record what was learned in RESEARCH.md
 

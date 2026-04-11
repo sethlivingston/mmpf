@@ -1,17 +1,17 @@
-# CSD — Custom Software Development
+# MMPF — My Meta-Prompting Framework
 
-A Claude Code skill framework for structured software development that follows a natural workflow: research freely, plan from knowledge, execute with discipline.
+A meta-prompting framework for structured software development that follows a natural workflow: research freely, plan from knowledge, execute with discipline.
 
 ## Project Structure
 
 ```
 skills/           # One folder per slash command, installed to ~/.claude/skills/
-  csd-start/      # Start a new project, enter research mode
-  csd-plan/       # Derive requirements from research, create phased plan
-  csd-execute/    # Run a phase with traceability and atomic commits
-  csd-status/     # Show current state and what's next
-  csd-backlog/    # Capture ideas for later
-  csd-complete/   # Archive project, reset for next
+  mmpf-start/      # Start a new project, enter research mode
+  mmpf-plan/       # Derive requirements from research, create phased plan
+  mmpf-execute/    # Run a phase with traceability and atomic commits
+  mmpf-status/     # Show current state and what's next
+  mmpf-backlog/    # Capture ideas for later
+  mmpf-complete/   # Archive project, reset for next
 docs/             # Project documentation
 install.sh        # Copies skills to ~/.claude/skills/
 ```
@@ -26,7 +26,7 @@ Each skill follows the agentskills.io standard:
 
 ## Runtime Artifacts
 
-Skills read/write artifacts in `.csd/` within the target project:
+Skills read/write artifacts in `.mmpf/` within the target project:
 - `STATE.md` — current project position and resumption info
 - `RESEARCH.md` — accumulated findings from research phase
 - `REQUIREMENTS.md` — requirements derived from research

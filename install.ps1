@@ -14,7 +14,7 @@ if (-not (Test-Path $SkillsDst)) {
 }
 
 $installed = 0
-Get-ChildItem -Path $SkillsSrc -Directory -Filter "csd-*" | ForEach-Object {
+Get-ChildItem -Path $SkillsSrc -Directory -Filter "mmpf-*" | ForEach-Object {
     $target = Join-Path $SkillsDst $_.Name
     if (Test-Path $target) {
         Remove-Item -Recurse -Force $target
@@ -25,4 +25,4 @@ Get-ChildItem -Path $SkillsSrc -Directory -Filter "csd-*" | ForEach-Object {
 }
 
 Write-Host ""
-Write-Host "Done. $installed CSD skills installed to $SkillsDst"
+Write-Host "Done. $installed MMPF skills installed to $SkillsDst"

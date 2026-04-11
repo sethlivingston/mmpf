@@ -1,6 +1,6 @@
-# CSD Artifact Formats
+# MMPF Artifact Formats
 
-All artifacts live in `.csd/` at the project root.
+All artifacts live in `.mmpf/` at the project root.
 
 ## STATE.md
 
@@ -96,7 +96,7 @@ Requirement IDs use category prefix + number: `AUTH-01`, `UI-03`, `PERF-02`, etc
 
 ## PLAN.md (per phase)
 
-Lives in `.csd/phases/NN-name/PLAN.md`.
+Lives in `.mmpf/phases/NN-name/PLAN.md`.
 
 ```markdown
 ---
@@ -131,7 +131,7 @@ Verifiable assertions that prove the goal is met:
 
 ## DONE.md (per phase)
 
-Lives in `.csd/phases/NN-name/DONE.md`.
+Lives in `.mmpf/phases/NN-name/DONE.md`.
 
 ```markdown
 ---
