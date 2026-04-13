@@ -50,7 +50,6 @@ What would you add, remove, or change?
 Iterate until the user is satisfied. Then:
 - Write `.mmpf/REQUIREMENTS.md` with categorized requirement IDs
 - Include an Out of Scope section for things explicitly excluded
-- Include a Traceability table (phases filled in during step 3)
 
 See `references/artifact-formats.md` for the full format.
 
@@ -77,10 +76,9 @@ See `references/artifact-formats.md` for the full PLAN.md format.
 ### 4. Verify coverage
 
 Spawn a subagent to check:
-- Every requirement ID appears in at least one phase
+- Every requirement ID appears in at least one phase's PLAN.md frontmatter
 - Every phase has at least one verifiable truth
 - Dependencies don't form cycles
-- The traceability table in REQUIREMENTS.md is complete
 
 Report any gaps to the user.
 

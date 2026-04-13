@@ -84,15 +84,11 @@ Requirements derived collaboratively from research findings.
 ## Out of Scope
 
 - <Explicitly excluded items>
-
-## Traceability
-
-| Requirement | Phase | Status |
-|---|---|---|
-| <ID> | <phase number> | pending / done |
 ```
 
 Requirement IDs use category prefix + number: `AUTH-01`, `UI-03`, `PERF-02`, etc.
+Requirement-to-phase mapping lives in PLAN.md frontmatter (`requirements: [...]`).
+Completion status is determined by whether the phase has a DONE.md.
 
 ## PLAN.md (per phase)
 
