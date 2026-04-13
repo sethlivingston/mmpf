@@ -12,6 +12,8 @@ fi
 
 mkdir -p "$SKILLS_DST"
 
+SHARED_REFS="$SCRIPT_DIR/references"
+
 installed=0
 for skill_dir in "$SKILLS_SRC"/mmpf-*; do
   skill_name="$(basename "$skill_dir")"
@@ -19,6 +21,13 @@ for skill_dir in "$SKILLS_SRC"/mmpf-*; do
 
   rm -rf "$target"
   cp -r "$skill_dir" "$target"
+
+  # Copy shared references into each installed skill
+  if [ -d "$SHARED_REFS" ]; then
+    mkdir -p "$target/references"
+    cp "$SHARED_REFS"/*.md "$target/references/"
+  fi
+
   echo "  Installed $skill_name"
   installed=$((installed + 1))
 done

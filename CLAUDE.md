@@ -6,12 +6,14 @@ A meta-prompting framework for structured software development that follows a na
 
 ```
 skills/           # One folder per slash command, installed to ~/.claude/skills/
-  mmpf-start/      # Start a new project, enter research mode
-  mmpf-plan/       # Derive requirements from research, create phased plan
+  mmpf-start/      # Start a new project, open a freeform discussion
+  mmpf-research/   # Investigate unknowns with parallel subagents
+  mmpf-plan/       # Derive requirements, create phased plan
   mmpf-execute/    # Run a phase with traceability and atomic commits
   mmpf-status/     # Show current state and what's next
   mmpf-backlog/    # Capture ideas for later
   mmpf-complete/   # Archive project, reset for next
+references/       # Shared reference docs, copied into each skill on install
 docs/             # Project documentation
 install.sh        # Copies skills to ~/.claude/skills/
 ```

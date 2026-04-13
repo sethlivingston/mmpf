@@ -1,43 +1,43 @@
 ---
 name: mmpf-plan
 description: >
-  Derive requirements from research and create a phased execution plan. Use
-  after research is complete (or sufficient) to crystallize what we learned
-  into actionable work. Creates REQUIREMENTS.md and per-phase PLAN.md files
-  with verifiable truths. Trigger: "let's plan", "ready to plan", "create a
-  plan", "/mmpf-plan".
+  Derive requirements and create a phased execution plan. Use after discussion
+  or research to crystallize what we know into actionable work. Creates
+  REQUIREMENTS.md and per-phase PLAN.md files with verifiable truths. Trigger:
+  "let's plan", "ready to plan", "create a plan", "/mmpf-plan".
 ---
 
 # /mmpf-plan — Plan from Knowledge
 
-Derive requirements from research findings and create a phased plan.
+Derive requirements and create a phased plan.
 
 ## Prerequisites
 
 - `.mmpf/STATE.md` must exist
-- `.mmpf/RESEARCH.md` should exist with findings (warn if empty, but allow planning without it)
 
 ## Steps
 
-### 1. Review research
+### 1. Review what we know
 
-Read `.mmpf/RESEARCH.md` and `.mmpf/STATE.md`.
+Read `.mmpf/STATE.md` and `.mmpf/RESEARCH.md` (if it exists).
 
-Summarize what we know:
+If RESEARCH.md exists, summarize:
 - Key findings and decisions made during research
 - Open questions that might affect planning
 - Any experiments and their takeaways
 
-Present this summary to the user. Ask if there's anything else to research before we plan, but don't push — if they say "let's plan", plan.
+If no RESEARCH.md, work from the discussion context — STATE.md and the current conversation.
+
+Present this summary to the user. Ask if there's anything else to figure out before we plan, but don't push — if they say "let's plan", plan.
 
 ### 2. Derive requirements collaboratively
 
 This is a conversation, not a form. Work with the user to identify what the project needs to deliver.
 
-Start by proposing requirements based on the research findings. Present them as a draft:
+Start by proposing requirements based on what we know (from research, discussion, or both). Present them as a draft:
 
 ```
-Based on our research, here's what I think we need:
+Based on what we've discussed, here's what I think we need:
 
 AUTH-01: Users can sign in with email/password
 AUTH-02: Session tokens expire after 24 hours
@@ -92,7 +92,7 @@ Update `.mmpf/STATE.md`:
 
 ## Principles
 
-- **Requirements come from research.** Don't invent requirements that aren't grounded in what we learned. If something feels missing, ask the user.
+- **Requirements come from what we know.** Don't invent requirements that aren't grounded in the discussion or research. If something feels missing, ask the user.
 - **Phases are small.** Each phase should be completable in one or two sessions. If a phase feels too big, split it.
 - **Truths are testable.** Every truth should be verifiable by running a test, checking a file, or observing a behavior. "Code is clean" is not a truth. "All public functions have typed parameters" is.
 - **Plans are living documents.** It's fine to update a PLAN.md during execution if we learn something new. The plan serves us, not the other way around.

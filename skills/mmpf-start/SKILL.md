@@ -1,16 +1,15 @@
 ---
 name: mmpf-start
 description: >
-  Start a new MMPF project and enter freeform research mode. Use when beginning
+  Start a new MMPF project and enter a freeform discussion. Use when beginning
   a new initiative, feature, or investigation. Creates the .mmpf/ directory and
-  STATE.md, then opens an unstructured research session where you explore,
-  experiment, and accumulate findings. Trigger: "let's start a new project",
-  "I want to research", "new mmpf project", "/mmpf-start".
+  STATE.md, then opens a conversation to explore the problem space and narrow
+  scope. Trigger: "let's start a new project", "new mmpf project", "/mmpf-start".
 ---
 
 # /mmpf-start — Start a New Project
 
-Start a new MMPF project and enter freeform research mode.
+Start a new MMPF project and open a freeform discussion.
 
 ## Steps
 
@@ -32,64 +31,46 @@ Create the directory structure:
 ```
 .mmpf/
 ├── STATE.md
-├── RESEARCH.md
-├── experiments/
 └── phases/
 ```
 
 Write `STATE.md` with:
 - `project`: the short name
-- `stage`: `research`
+- `stage`: `discussion`
 - `started`: today's date
 - `updated`: today's date
 - Current Focus: the project description
 - Context: empty (nothing decided yet)
-- Next Step: "Begin research — explore the problem space"
+- Next Step: "Discuss the problem space and decide on approach"
 
 See `references/artifact-formats.md` for the full STATE.md format.
 
-Write `RESEARCH.md` with the project name as the title and empty sections for Findings, Experiments, Open Questions, and Decisions.
+### 4. Enter discussion mode
 
-### 4. Enter research mode
+Tell the user: the project is set up and we're in discussion mode. Explain what this means:
+- This is freeform — talk through the problem, explore ideas, surface assumptions
+- The goal is to get clear enough on the problem that we can decide what's next
+- When ready, the next step is either:
+  - `/mmpf-research` — if there are unknowns to investigate (new domain, unfamiliar codebase, multiple viable approaches)
+  - `/mmpf-plan` — if we already know enough to plan (familiar territory, clear requirements)
 
-Tell the user: the project is set up and we're in research mode. Explain what this means:
-- This is freeform — direct the research however you want
-- Ask me to look things up, read docs, explore the codebase, or try experiments
-- Findings accumulate in `.mmpf/RESEARCH.md`
-- Experiments (scripts, pseudocode, prototypes) go in `.mmpf/experiments/`
-- When you feel you understand the problem well enough, run `/mmpf-plan`
+Then ask: "What are you thinking?"
 
-Then ask: "Where do you want to start?"
+## Discussion Mode Behavior
 
-## Research Mode Behavior
+While in discussion mode (STATE.md stage is `discussion`), follow these principles:
 
-While in research mode (STATE.md stage is `research`), follow these principles:
+**Be conversational.** This is a thinking-together session. Ask clarifying questions, push back on assumptions, suggest angles the user may not have considered. No forms, no checklists, no gates.
 
-**Be freeform.** Do not impose structure on the research process. No "are you ready for the next area?" gates. No mandatory sections to fill out. The user directs.
+**Help narrow scope.** The discussion should trend toward clarity:
+- What problem are we solving and for whom?
+- What does "done" look like?
+- What do we already know vs. what do we need to learn?
+- Are there constraints (time, tech, compatibility) that shape the approach?
 
-**Use subagents.** Spawn Sonnet or Haiku subagents for:
-- Deep dives into documentation or codebases
-- Web searches for prior art, libraries, patterns
-- Reading and summarizing long documents
-- Exploring multiple approaches in parallel
+**Don't record obsessively.** STATE.md should have enough context that a fresh session isn't totally lost, but the conversation itself is the primary artifact here. Update STATE.md's Current Focus and Context sections when something significant crystallizes — not after every exchange.
 
-This keeps the main conversation context clean and focused.
-
-**Accumulate findings.** After each research activity, update `.mmpf/RESEARCH.md`:
-- Add findings under relevant topic headings
-- Tag confidence: [VERIFIED], [CITED], or [ASSUMED]
-- Record experiment results with goal/approach/result/takeaway
-- Capture decisions as they're made
-- Note open questions
-
-**Support experiments.** When the user wants to try something:
-- Write scripts, pseudocode, or prototypes to `.mmpf/experiments/`
-- These are throwaway — they exist to learn, not to ship
-- Record what was learned in RESEARCH.md
-
-**Check for existing solutions.** Before building anything from scratch, check:
-- Does a library or tool already solve this?
-- Is there a well-established pattern?
-- What are others doing in this space?
-
-**Keep STATE.md current.** Update the Current Focus and Context sections as the research evolves. A fresh session should be able to pick up where we left off.
+**Recognize the decision point.** When the discussion has narrowed enough, surface the choice explicitly: "It sounds like we're ready to plan — or is there research you want to do first?" Help the user distinguish between:
+- Things we need to *learn* (→ `/mmpf-research`) — unknowns that would change the plan
+- Things we need to *decide* (→ keep discussing) — choices between known options
+- Things we already know (→ `/mmpf-plan`) — ready to commit to requirements and phases

@@ -9,7 +9,7 @@ Tracks current project position for session resumption.
 ```markdown
 ---
 project: <short project name>
-stage: research | planning | executing | complete
+stage: discussion | research | planning | executing | complete
 phase: <current phase number, if executing>
 started: <ISO date>
 updated: <ISO date>
@@ -30,42 +30,39 @@ updated: <ISO date>
 
 ## RESEARCH.md
 
-Accumulated findings from freeform research and experimentation.
+Compiled findings from parallel research subagents.
 
 ```markdown
 # Research: <project name>
 
+## Summary
+
+<2-3 paragraphs: key findings across all strategies, recommended approach, risks to account for>
+
 ## Findings
 
-### <Topic>
-<What we learned. Tag confidence:>
+### <Strategy: Topic>
+<Findings organized by subtopic>
+<Each finding tagged:>
 - [VERIFIED] — confirmed by docs, tests, or code
 - [CITED] — from a credible source, not independently verified
 - [ASSUMED] — reasonable belief, not yet confirmed
 
-### <Topic>
+### <Strategy: Topic>
 ...
-
-## Experiments
-
-### <Experiment name>
-- **Goal:** <what we wanted to learn>
-- **Approach:** <what we did>
-- **Result:** <what happened>
-- **Takeaway:** <what this means for the project>
 
 ## Open Questions
 
-- <Things we still don't know>
+- <Things still unknown after research, if any>
 
 ## Decisions
 
-- <Choices made during research that should carry forward>
+- <Choices made or recommended based on findings>
 ```
 
 ## REQUIREMENTS.md
 
-Requirements derived collaboratively from research findings.
+Requirements derived collaboratively from discussion and/or research.
 
 ```markdown
 # Requirements: <project name>

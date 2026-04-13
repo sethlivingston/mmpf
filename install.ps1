@@ -13,6 +13,8 @@ if (-not (Test-Path $SkillsDst)) {
     New-Item -ItemType Directory -Path $SkillsDst -Force | Out-Null
 }
 
+$SharedRefs = Join-Path $ScriptDir "references"
+
 $installed = 0
 Get-ChildItem -Path $SkillsSrc -Directory -Filter "mmpf-*" | ForEach-Object {
     $target = Join-Path $SkillsDst $_.Name
@@ -20,6 +22,16 @@ Get-ChildItem -Path $SkillsSrc -Directory -Filter "mmpf-*" | ForEach-Object {
         Remove-Item -Recurse -Force $target
     }
     Copy-Item -Recurse $_.FullName $target
+
+    # Copy shared references into each installed skill
+    if (Test-Path $SharedRefs) {
+        $refsTarget = Join-Path $target "references"
+        if (-not (Test-Path $refsTarget)) {
+            New-Item -ItemType Directory -Path $refsTarget -Force | Out-Null
+        }
+        Copy-Item (Join-Path $SharedRefs "*.md") $refsTarget
+    }
+
     Write-Host "  Installed $($_.Name)"
     $installed++
 }
