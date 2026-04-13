@@ -83,12 +83,21 @@ See `references/artifact-formats.md` for the full format.
 
 ### 6. Verify truths
 
-Spawn a subagent to independently verify each truth from the PLAN.md:
-- Run the tests
-- Check that files exist and contain expected content
-- Verify observable behaviors
+Spawn a Sonnet subagent to independently verify each truth from the PLAN.md. The subagent receives:
+- The list of truths from PLAN.md (the verifiable assertions)
+- The DONE.md just written (what was built and how)
+- The project's test commands and file paths
+- Access to read the codebase and run tests
 
-If any truth fails verification, report it. Do not mark the phase as done until truths pass or the user explicitly accepts the gap.
+The subagent's job is to verify each truth through direct observation, not by trusting what DONE.md claims. For each truth, it should:
+- **Run relevant tests** and confirm they pass
+- **Read files** to confirm expected content, exports, or structure exist
+- **Run commands** (build, lint, type-check) if the truth implies they should succeed
+- **Report pass/fail** for each truth with evidence (test output, file contents, command results)
+
+The subagent returns its findings. Update DONE.md's "Truths Verified" section with the subagent's results.
+
+If any truth fails verification, report it to the user. Do not mark the phase as done until truths pass or the user explicitly accepts the gap.
 
 ### 7. Update project artifacts
 

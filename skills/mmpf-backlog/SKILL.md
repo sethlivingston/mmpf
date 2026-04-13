@@ -46,8 +46,8 @@ Read `.mmpf/BACKLOG.md` and display the items. If the backlog is empty, say so a
 
 When the user wants to act on a backlog item:
 - Confirm which item they mean
-- Suggest running `/mmpf-start` to begin a project for it
-- Do NOT automatically remove it from the backlog — remove it only after `/mmpf-start` creates the project
+- Suggest running `/mmpf-start` and present the backlog item's title and description so the user can use it as a starting point — but don't auto-invoke or skip the discussion step
+- Remove the item from BACKLOG.md only after `/mmpf-start` creates the project
 
 ## Notes
 

@@ -80,7 +80,9 @@ Spawn a subagent to check:
 - Every phase has at least one verifiable truth
 - Dependencies don't form cycles
 
-Report any gaps to the user.
+**Handling partial coverage:** If a requirement is large enough that one phase only covers part of it, split the requirement into sub-IDs (e.g., `AUTH-01a`, `AUTH-01b`) so each phase's frontmatter accurately reflects what it delivers. Every sub-ID should be independently verifiable. Don't leave a requirement listed in a phase that only partially implements it — that creates false confidence during verification.
+
+Report any gaps or recommended splits to the user.
 
 ### 5. Update state
 
