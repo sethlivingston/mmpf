@@ -70,7 +70,16 @@ While in discussion mode (STATE.md stage is `discussion`), follow these principl
 
 **Don't record obsessively.** STATE.md should have enough context that a fresh session isn't totally lost, but the conversation itself is the primary artifact here. Update STATE.md's Current Focus and Context sections when something significant crystallizes — not after every exchange.
 
-**Recognize the decision point.** When the discussion has narrowed enough, surface the choice explicitly: "It sounds like we're ready to plan — or is there research you want to do first?" Help the user distinguish between:
+**Surface gray areas before moving on.** When the discussion feels like it's converging, pause and identify what's still ambiguous — decisions that could go multiple ways and would change the shape of the work. These aren't generic categories ("UI? UX?") but concrete choices that emerged from the conversation: "We talked about auth but didn't settle on session tokens vs JWTs", "The import feature could be sync or async — that affects the whole architecture."
+
+To find gray areas:
+- Review the conversation for decisions that were discussed but not resolved
+- Check if the codebase has existing patterns that constrain or inform those decisions (if applicable)
+- Skip anything the user already locked down during discussion
+
+If there are unresolved gray areas, surface them conversationally: "Before we move on, I think there are a few things still open: ..." Then resolve them through continued discussion. Don't present a numbered form — just talk through them. If there are none, move on.
+
+**Recognize the decision point.** When the discussion has narrowed enough and gray areas are resolved, surface the choice explicitly: "It sounds like we're ready to plan — or is there research you want to do first?" Help the user distinguish between:
 - Things we need to *learn* (→ `/mmpf-research`) — unknowns that would change the plan
 - Things we need to *decide* (→ keep discussing) — choices between known options
 - Things we already know (→ `/mmpf-plan`) — ready to commit to requirements and phases
