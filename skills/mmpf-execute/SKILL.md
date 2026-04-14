@@ -70,21 +70,40 @@ For each task in the PLAN.md:
 - If the plan needs to change, update PLAN.md and tell the user what changed and why
 - Do not silently deviate from the plan
 
-### 5. Write DONE.md
+### 5. Review code
+
+Spawn a Sonnet subagent to review the code changed during this phase. The subagent receives:
+- The list of files modified (from git diff against the pre-phase baseline)
+- The phase's PLAN.md (for intent context)
+
+The subagent reviews for:
+- **Bugs** — logic errors, off-by-ones, null dereferences, race conditions
+- **Security** — injection, auth bypasses, secrets in code, unsafe input handling
+- **Quality** — dead code, duplicated logic, missing error handling at system boundaries
+
+It classifies each finding by severity: `high` (likely bug or vulnerability), `medium` (potential issue), `low` (style or minor concern).
+
+**Handling findings:**
+- **No findings:** Record "No issues found" in DONE.md's Code Review section and continue.
+- **Findings exist:** Fix them one at a time, highest severity first. Run tests after each fix — if any test fails, stop and report to the user before continuing. This fail-fast discipline prevents cascading breakage.
+
+### 6. Write DONE.md
 
 When all tasks are complete (or the phase is being closed), create `.mmpf/phases/NN-name/DONE.md`:
 
 - List what was built
 - Check each truth from PLAN.md — verified or not, and how
 - List tests created
+- Record code review results (findings and fixes, or "No issues found")
 - Note any deviations from the plan
 
 See `references/artifact-formats.md` for the full format.
 
-### 6. Verify truths
+### 7. Verify truths and threats
 
 Spawn a Sonnet subagent to independently verify each truth from the PLAN.md. The subagent receives:
 - The list of truths from PLAN.md (the verifiable assertions)
+- The threats from PLAN.md, if any (with their stated mitigations)
 - The DONE.md just written (what was built and how)
 - The project's test commands and file paths
 - Access to read the codebase and run tests
@@ -93,13 +112,18 @@ The subagent's job is to verify each truth through direct observation, not by tr
 - **Run relevant tests** and confirm they pass
 - **Read files** to confirm expected content, exports, or structure exist
 - **Run commands** (build, lint, type-check) if the truth implies they should succeed
+- **Check staleness** — before verifying a truth, confirm the referenced component still exists (hasn't been renamed or removed during the phase)
 - **Report pass/fail** for each truth with evidence (test output, file contents, command results)
 
-The subagent returns its findings. Update DONE.md's "Truths Verified" section with the subagent's results.
+For each threat in the PLAN.md, the subagent verifies the mitigation is actually present:
+- **Read the relevant code** to confirm the mitigation was implemented, not just planned
+- **Report pass/fail** for each threat with evidence
 
-If any truth fails verification, report it to the user. Do not mark the phase as done until truths pass or the user explicitly accepts the gap.
+The subagent returns its findings. Update DONE.md's "Truths Verified" and "Threats Verified" sections with the subagent's results.
 
-### 7. Update project artifacts
+If any truth or threat fails verification, report it to the user. Do not mark the phase as done until all pass or the user explicitly accepts the gap.
+
+### 8. Update project artifacts
 
 After successful execution, consider whether updates are needed to:
 - **CLAUDE.md** — if the phase established conventions, patterns, or architectural decisions that future work should follow
@@ -107,7 +131,7 @@ After successful execution, consider whether updates are needed to:
 
 Only update these when genuinely appropriate. Do not add temporal entries ("we changed X on this date"). Document the current state, not the history.
 
-### 8. Advance state
+### 9. Advance state
 
 Update `.mmpf/STATE.md`:
 - If more phases remain: set Next Step to the next phase
@@ -120,4 +144,6 @@ Update `.mmpf/STATE.md`:
 - **Test by default.** Code deliverables get unit tests. Use the testing heuristic to decide TDD vs test-after. See `references/testing-heuristic.md`.
 - **Traceability.** Every commit relates to a task. Every task relates to a truth. Every truth relates to a requirement. This chain doesn't need to be explicit in commit messages, but it should be reconstructable.
 - **Subagents for focus.** Delegate discrete implementation tasks to subagents. This keeps the main context clean and provides a fresh perspective on each task.
+- **Fail fast when fixing.** When addressing review findings or failed truths, fix one at a time and run tests after each. First failure stops the sequence — diagnose before continuing. Don't batch fixes and hope they compose.
+- **Deviations need mechanisms, not acknowledgment.** If the plan had to change, document what changed, why, and what structural step prevents the same surprise next time. "We'll be more careful" is not a mechanism.
 - **Plans are guides, not shackles.** If execution reveals the plan is wrong, update the plan. Document the deviation in DONE.md.

@@ -73,18 +73,36 @@ Then for each phase, create `.mmpf/phases/NN-name/PLAN.md` with:
 
 See `references/artifact-formats.md` for the full PLAN.md format.
 
-### 4. Verify coverage
+### 4. Identify threats
+
+For each phase, scan its tasks for security-relevant work — anything involving authentication, authorization, data handling, external input, secrets, network boundaries, or file system access.
+
+If threats exist, add a `## Threats` section to that phase's PLAN.md:
+
+```
+## Threats
+
+- **T1**: <what could go wrong> → <mitigation approach>
+- **T2**: <what could go wrong> → <mitigation approach>
+```
+
+Each threat needs a concrete mitigation, not "be careful." These are verified during execution — a threat without a mitigation blocks phase completion.
+
+Phases with no security-relevant work skip this section entirely.
+
+### 5. Verify coverage
 
 Spawn a subagent to check:
 - Every requirement ID appears in at least one phase's PLAN.md frontmatter
 - Every phase has at least one verifiable truth
 - Dependencies don't form cycles
+- Every threat has a mitigation (not just a description)
 
 **Handling partial coverage:** If a requirement is large enough that one phase only covers part of it, split the requirement into sub-IDs (e.g., `AUTH-01a`, `AUTH-01b`) so each phase's frontmatter accurately reflects what it delivers. Every sub-ID should be independently verifiable. Don't leave a requirement listed in a phase that only partially implements it — that creates false confidence during verification.
 
 Report any gaps or recommended splits to the user.
 
-### 5. Update state
+### 6. Update state
 
 Update `.mmpf/STATE.md`:
 - `stage`: `planning` (or `executing` if plan is approved and user wants to start)

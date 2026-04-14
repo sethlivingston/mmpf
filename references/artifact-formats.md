@@ -113,6 +113,13 @@ Verifiable assertions that prove the goal is met:
 - [ ] <truth 2>
 - ...
 
+## Threats
+
+Security-relevant phases only. Omit for phases with no security surface.
+
+- **T1**: <what could go wrong> → <mitigation approach>
+- **T2**: <what could go wrong> → <mitigation approach>
+
 ## Tasks
 
 ### Task 1: <description>
@@ -148,6 +155,18 @@ commits: [<list of commit SHAs>]
 ## Tests
 
 <Test files created/modified, what they cover>
+
+## Code Review
+
+<Findings from the code review subagent, grouped by severity>
+<If no issues found: "No issues found.">
+
+## Threats Verified
+
+Include only if the phase's PLAN.md had a Threats section.
+
+- [x] <T1 description> — <how the mitigation was verified>
+- [ ] <T2 description> — <why not verified, if applicable>
 
 ## Notes
 
