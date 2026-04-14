@@ -4,13 +4,16 @@ description: >
   Execute a phase from the MMPF plan. Implements tasks with atomic commits,
   TDD when appropriate, and subagent delegation. Writes DONE.md with
   verification results on completion. Updates CLAUDE.md and /docs when
-  appropriate. Trigger: "let's execute", "start phase", "build it",
+  appropriate. Use --chain to run all remaining phases without pausing.
+  Trigger: "let's execute", "start phase", "build it", "execute all",
   "/mmpf-execute".
 ---
 
 # /mmpf-execute — Execute with Discipline
 
 Run a phase from the plan with traceability and best practices.
+
+Use `--chain` to execute all remaining phases without pausing between them. Each phase still gets full review and verification — chaining skips the pause, not the discipline.
 
 ## Prerequisites
 
@@ -137,6 +140,15 @@ Update `.mmpf/STATE.md`:
 - If more phases remain: set Next Step to the next phase
 - If all phases are done: set `stage: executing` with Next Step suggesting `/mmpf-complete`
 - Update the Context section with key decisions or outcomes from this phase
+
+### 10. Chain to next phase (optional)
+
+If `--chain` was specified and more phases remain, go back to step 1 with the next phase. Do not pause to ask the user — proceed directly.
+
+Stop chaining if:
+- All phases are complete
+- A verification truth or threat fails (the user needs to weigh in)
+- A code review finding of `high` severity couldn't be auto-fixed
 
 ## Principles
 
