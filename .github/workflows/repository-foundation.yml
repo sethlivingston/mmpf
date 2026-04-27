@@ -1,0 +1,159 @@
+name: Repository Foundation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: repo-foundation-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  foundation:
+    name: Repository foundation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Validate skill metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mapfile -t skill_dirs < <(find skills -mindepth 1 -maxdepth 1 -type d -name 'mmpf-*' | sort)
+          if [ "${#skill_dirs[@]}" -eq 0 ]; then
+            echo "No mmpf-* skill directories found under skills/" >&2
+            exit 1
+          fi
+
+          for skill_dir in "${skill_dirs[@]}"; do
+            skill_name="$(basename "$skill_dir")"
+            skill_file="$skill_dir/SKILL.md"
+
+            if [ ! -f "$skill_file" ]; then
+              echo "Missing SKILL.md for $skill_name" >&2
+              exit 1
+            fi
+
+            frontmatter_name="$(
+              awk '
+                BEGIN { in_header = 0 }
+                /^---$/ { in_header = !in_header; next }
+                in_header && $1 == "name:" { print $2; exit }
+              ' "$skill_file"
+            )"
+
+            if [ -z "$frontmatter_name" ]; then
+              echo "Missing frontmatter name in $skill_file" >&2
+              exit 1
+            fi
+
+            if [ "$frontmatter_name" != "$skill_name" ]; then
+              echo "Skill directory $skill_name does not match frontmatter name $frontmatter_name" >&2
+              exit 1
+            fi
+          done
+
+      - name: Verify POSIX installer
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          tmp_home="$(mktemp -d)"
+          trap 'rm -rf "$tmp_home"' EXIT
+
+          HOME="$tmp_home" ./install.sh both
+
+          source_count="$(find skills -mindepth 1 -maxdepth 1 -type d -name 'mmpf-*' | wc -l | tr -d ' ')"
+          mapfile -t shared_refs < <(find references -mindepth 1 -maxdepth 1 -type f -name '*.md' -exec basename {} \; | sort)
+
+          for runtime_root in "$tmp_home/.claude/skills" "$tmp_home/.copilot/skills"; do
+            installed_count="$(find "$runtime_root" -mindepth 1 -maxdepth 1 -type d -name 'mmpf-*' | wc -l | tr -d ' ')"
+            if [ "$installed_count" != "$source_count" ]; then
+              echo "Expected $source_count installed skills in $runtime_root, found $installed_count" >&2
+              exit 1
+            fi
+
+            while IFS= read -r skill_dir; do
+              skill_name="$(basename "$skill_dir")"
+              installed_skill="$runtime_root/$skill_name"
+
+              if [ ! -f "$installed_skill/SKILL.md" ]; then
+                echo "Missing installed SKILL.md for $skill_name in $runtime_root" >&2
+                exit 1
+              fi
+
+              for ref_name in "${shared_refs[@]}"; do
+                if [ ! -f "$installed_skill/references/$ref_name" ]; then
+                  echo "Missing shared reference $ref_name in $installed_skill" >&2
+                  exit 1
+                fi
+              done
+            done < <(find skills -mindepth 1 -maxdepth 1 -type d -name 'mmpf-*' | sort)
+          done
+
+  powershell-installer:
+    name: PowerShell installer
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+
+      - name: Verify PowerShell installer
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          $TempHome = Join-Path $env:RUNNER_TEMP "mmpf-home"
+          if (Test-Path $TempHome) {
+            Remove-Item -Recurse -Force $TempHome
+          }
+          New-Item -ItemType Directory -Path $TempHome | Out-Null
+          $env:USERPROFILE = $TempHome
+
+          .\install.ps1 both
+
+          $SourceSkills = @(Get-ChildItem -Path .\skills -Directory -Filter "mmpf-*" | Sort-Object Name)
+          if ($SourceSkills.Count -eq 0) {
+            throw "No mmpf-* skill directories found under skills/"
+          }
+
+          $SharedRefs = @()
+          if (Test-Path .\references) {
+            $SharedRefs = @(Get-ChildItem -Path .\references -File -Filter "*.md" | Sort-Object Name)
+          }
+
+          foreach ($RuntimePath in @(".claude\skills", ".copilot\skills")) {
+            $InstalledRoot = Join-Path $env:USERPROFILE $RuntimePath
+            $InstalledSkills = @(Get-ChildItem -Path $InstalledRoot -Directory -Filter "mmpf-*" | Sort-Object Name)
+
+            if ($InstalledSkills.Count -ne $SourceSkills.Count) {
+              throw "Expected $($SourceSkills.Count) installed skills in $InstalledRoot, found $($InstalledSkills.Count)"
+            }
+
+            foreach ($Skill in $SourceSkills) {
+              $InstalledSkill = Join-Path $InstalledRoot $Skill.Name
+              if (-not (Test-Path (Join-Path $InstalledSkill "SKILL.md"))) {
+                throw "Missing installed SKILL.md for $($Skill.Name) in $InstalledRoot"
+              }
+
+              foreach ($Ref in $SharedRefs) {
+                $InstalledRef = Join-Path (Join-Path $InstalledSkill "references") $Ref.Name
+                if (-not (Test-Path $InstalledRef)) {
+                  throw "Missing shared reference $($Ref.Name) in $InstalledSkill"
+                }
+              }
+            }
+          }
