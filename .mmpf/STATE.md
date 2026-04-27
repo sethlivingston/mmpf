@@ -1,19 +1,19 @@
 ---
 project: copilot-cli support
 stage: executing
-phase: 2
+phase: 3
 started: 2026-04-27
 updated: 2026-04-27
 ---
 
 ## Current Focus
 
-Executing Phase 2: Update README documentation to guide manual installation for Claude, Copilot, and both runtimes on supported platforms. Clearly distinguish Claude slash-command usage from Copilot skill-based usage without implying unsupported Copilot `/mmpf-*` slash commands.
+Executing Phase 3: normalize shared skill language so the existing `skills/mmpf-*` files stay the single source of truth while their wording accurately reflects Claude and Copilot support.
 
 ## Context
 
-Phase 1 (runtime installers) is complete. Both `install.sh` and `install.ps1` now support dual-runtime installation with proper cleanup and reference copying. Phase 2 focuses on user-facing documentation to make installation and usage clear for both runtimes.
+Phases 1 and 2 are complete. Installers now support Claude, Copilot, or both runtimes, and the README explains runtime-specific installation, usage, and Copilot skill reload/verification.
 
 ## Next Step
 
-Begin Phase 2: Update README with runtime-specific installation guidance
+Begin Phase 3: update shared skill descriptions and body text to remove implied universal `/mmpf-*` command support
