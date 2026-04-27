@@ -5,7 +5,7 @@ A meta-prompting framework for structured software development that follows a na
 ## Project Structure
 
 ```
-skills/           # One folder per slash command, installed to ~/.claude/skills/
+skills/           # One folder per slash command, installed to ~/.claude/skills/ and/or ~/.copilot/skills
   mmpf-start/      # Start a new project, open a freeform discussion
   mmpf-research/   # Investigate unknowns with parallel subagents
   mmpf-plan/       # Derive requirements, create phased plan
@@ -15,7 +15,8 @@ skills/           # One folder per slash command, installed to ~/.claude/skills/
   mmpf-complete/   # Archive project, reset for next
 references/       # Shared reference docs, copied into each skill on install
 docs/             # Project documentation
-install.sh        # Copies skills to ~/.claude/skills/
+install.sh        # POSIX installer: accepts runtime param (claude|copilot|both)
+install.ps1       # PowerShell installer: accepts runtime param (claude|copilot|both)
 ```
 
 ## Skill Format
