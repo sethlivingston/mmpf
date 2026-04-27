@@ -4,10 +4,11 @@ description: >
   Complete the current MMPF project. Archives artifacts for reference, resets
   state for the next project. Can be used to finish a successful project or
   to close one early. Trigger: "we're done", "complete the project", "wrap up",
-  "close this project", "/mmpf-complete".
+  "close this project", "mmpf-complete". Claude users can also invoke
+  `/mmpf-complete`.
 ---
 
-# /mmpf-complete — Finish and Reset
+# mmpf-complete — Finish and Reset
 
 Complete the current project and archive its artifacts.
 
@@ -69,7 +70,7 @@ Last project "<name>" completed on <date>.
 
 ## Next Step
 
-Run `/mmpf-start` to begin a new project, or `/mmpf-backlog` to review ideas.
+Use `mmpf-start` to begin a new project, or `mmpf-backlog` to review ideas.
 ```
 
 ### 5. Summary
@@ -77,7 +78,7 @@ Run `/mmpf-start` to begin a new project, or `/mmpf-backlog` to review ideas.
 Tell the user:
 - The project has been archived to `.mmpf/archive/<dir>/`
 - Mention any backlog items if they exist
-- Suggest `/mmpf-start` or `/mmpf-backlog` as next steps
+- Suggest `mmpf-start` or `mmpf-backlog` as next steps
 
 ## Notes
 

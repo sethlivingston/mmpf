@@ -4,26 +4,22 @@ description: >
   Manage the MMPF backlog — capture ideas for future work, list pending items,
   or promote an item to a new project. Use when you have an idea worth
   remembering but don't want to act on it now. Trigger: "add to backlog",
-  "backlog", "save this idea", "what's in the backlog", "/mmpf-backlog".
+  "backlog", "save this idea", "what's in the backlog", "mmpf-backlog". Claude
+  users can also invoke `/mmpf-backlog`.
 ---
 
-# /mmpf-backlog — Capture Ideas for Later
+# mmpf-backlog — Capture Ideas for Later
 
 Manage the backlog of future ideas and tasks.
-
-## Usage
-
-`/mmpf-backlog` with no arguments lists the current backlog.
-`/mmpf-backlog <idea>` adds a new item.
 
 ## Steps
 
 ### 1. Determine action
 
-Based on user input:
-- **No argument or "list"** — show the backlog
-- **Text provided** — add it as a new item
-- **"promote <item>"** — suggest starting a new project from that item
+Interpret the user's request naturally:
+- **They ask to see the backlog or just invoke the skill without a new idea** — show the backlog
+- **They provide a new idea to remember** — add it as a new item
+- **They ask to promote an existing item** — suggest starting a new project from that item
 
 ### 2. Adding an item
 
@@ -40,17 +36,17 @@ Confirm: "Added to backlog: <title>"
 
 ### 3. Listing items
 
-Read `.mmpf/BACKLOG.md` and display the items. If the backlog is empty, say so and suggest the user can add items anytime with `/mmpf-backlog <idea>`.
+Read `.mmpf/BACKLOG.md` and display the items. If the backlog is empty, say so and suggest the user can add items anytime by asking `mmpf-backlog` to save an idea.
 
 ### 4. Promoting an item
 
 When the user wants to act on a backlog item:
 - Confirm which item they mean
-- Suggest running `/mmpf-start` and present the backlog item's title and description so the user can use it as a starting point — but don't auto-invoke or skip the discussion step
-- Remove the item from BACKLOG.md only after `/mmpf-start` creates the project
+- Suggest using `mmpf-start` and present the backlog item's title and description so the user can use it as a starting point — but don't auto-invoke or skip the discussion step
+- Remove the item from BACKLOG.md only after `mmpf-start` creates the project
 
 ## Notes
 
-- The backlog persists across projects. It is not cleared by `/mmpf-complete`.
+- The backlog persists across projects. It is not cleared by `mmpf-complete`.
 - Items are simple — no priority, no categories, no IDs. Just ideas with context.
 - If there's no `.mmpf/` directory at all, create it and BACKLOG.md.

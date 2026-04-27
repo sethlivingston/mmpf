@@ -4,10 +4,11 @@ description: >
   Derive requirements and create a phased execution plan. Use after discussion
   or research to crystallize what we know into actionable work. Creates
   REQUIREMENTS.md and per-phase PLAN.md files with verifiable truths. Trigger:
-  "let's plan", "ready to plan", "create a plan", "/mmpf-plan".
+  "let's plan", "ready to plan", "create a plan", "mmpf-plan". Claude users can
+  also invoke `/mmpf-plan`.
 ---
 
-# /mmpf-plan — Plan from Knowledge
+# mmpf-plan — Plan from Knowledge
 
 Derive requirements and create a phased plan.
 
@@ -108,7 +109,7 @@ Update `.mmpf/STATE.md`:
 - `stage`: `planning` (or `executing` if plan is approved and user wants to start)
 - `updated`: today's date
 - Current Focus: summary of the plan
-- Next Step: "Run `/mmpf-execute` to begin phase 1" (or whichever phase is first)
+- Next Step: "Use `mmpf-execute` to begin phase 1" (or whichever phase is first)
 
 ## Principles
 

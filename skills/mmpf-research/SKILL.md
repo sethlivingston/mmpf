@@ -4,10 +4,11 @@ description: >
   Investigate unknowns identified during discussion. Selects research strategies
   based on discussion context, runs parallel subagents, and produces RESEARCH.md
   with a summary and detailed findings. Trigger: "let's research", "investigate",
-  "I need to learn more", "/mmpf-research".
+  "I need to learn more", "mmpf-research". Claude users can also invoke
+  `/mmpf-research`.
 ---
 
-# /mmpf-research — Investigate Unknowns
+# mmpf-research — Investigate Unknowns
 
 Run focused research using parallel subagents, then compile findings into RESEARCH.md.
 
@@ -97,7 +98,7 @@ Update `.mmpf/STATE.md`:
 - `stage`: `research`
 - `updated`: today's date
 - Current Focus: summary of what was learned
-- Next Step: "Run `/mmpf-plan` to create a plan from these findings"
+- Next Step: "Use `mmpf-plan` to create a plan from these findings"
 
 ## Principles
 

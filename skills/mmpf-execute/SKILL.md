@@ -6,10 +6,10 @@ description: >
   verification results on completion. Updates CLAUDE.md and /docs when
   appropriate. Use --chain to run all remaining phases without pausing.
   Trigger: "let's execute", "start phase", "build it", "execute all",
-  "/mmpf-execute".
+  "mmpf-execute". Claude users can also invoke `/mmpf-execute`.
 ---
 
-# /mmpf-execute — Execute with Discipline
+# mmpf-execute — Execute with Discipline
 
 Run a phase from the plan with traceability and best practices.
 
@@ -138,7 +138,7 @@ Only update these when genuinely appropriate. Do not add temporal entries ("we c
 
 Update `.mmpf/STATE.md`:
 - If more phases remain: set Next Step to the next phase
-- If all phases are done: set `stage: executing` with Next Step suggesting `/mmpf-complete`
+- If all phases are done: set `stage: executing` with Next Step suggesting `mmpf-complete`
 - Update the Context section with key decisions or outcomes from this phase
 
 ### 10. Chain to next phase (optional)

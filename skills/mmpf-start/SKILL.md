@@ -4,10 +4,11 @@ description: >
   Start a new MMPF project and enter a freeform discussion. Use when beginning
   a new initiative, feature, or investigation. Creates the .mmpf/ directory and
   STATE.md, then opens a conversation to explore the problem space and narrow
-  scope. Trigger: "let's start a new project", "new mmpf project", "/mmpf-start".
+  scope. Trigger: "let's start a new project", "new mmpf project",
+  "mmpf-start". Claude users can also invoke `/mmpf-start`.
 ---
 
-# /mmpf-start — Start a New Project
+# mmpf-start — Start a New Project
 
 Start a new MMPF project and open a freeform discussion.
 
@@ -17,7 +18,7 @@ Start a new MMPF project and open a freeform discussion.
 
 Read `.mmpf/STATE.md`. If it exists and `stage` is not `complete`:
 - Tell the user there's an active project and show its name and stage
-- Ask if they want to `/mmpf-complete` it first or abandon it
+- Ask if they want to use `mmpf-complete` first or abandon it
 - Do not proceed until resolved
 
 ### 2. Get project name
@@ -51,8 +52,8 @@ Tell the user: the project is set up and we're in discussion mode. Explain what 
 - This is freeform — talk through the problem, explore ideas, surface assumptions
 - The goal is to get clear enough on the problem that we can decide what's next
 - When ready, the next step is either:
-  - `/mmpf-research` — if there are unknowns to investigate (new domain, unfamiliar codebase, multiple viable approaches)
-  - `/mmpf-plan` — if we already know enough to plan (familiar territory, clear requirements)
+  - `mmpf-research` — if there are unknowns to investigate (new domain, unfamiliar codebase, multiple viable approaches)
+  - `mmpf-plan` — if we already know enough to plan (familiar territory, clear requirements)
 
 Then ask: "What are you thinking?"
 
@@ -80,6 +81,6 @@ To find gray areas:
 If there are unresolved gray areas, surface them conversationally: "Before we move on, I think there are a few things still open: ..." Then resolve them through continued discussion. Don't present a numbered form — just talk through them. If there are none, move on.
 
 **Recognize the decision point.** When the discussion has narrowed enough and gray areas are resolved, surface the choice explicitly: "It sounds like we're ready to plan — or is there research you want to do first?" Help the user distinguish between:
-- Things we need to *learn* (→ `/mmpf-research`) — unknowns that would change the plan
+- Things we need to *learn* (→ `mmpf-research`) — unknowns that would change the plan
 - Things we need to *decide* (→ keep discussing) — choices between known options
-- Things we already know (→ `/mmpf-plan`) — ready to commit to requirements and phases
+- Things we already know (→ `mmpf-plan`) — ready to commit to requirements and phases
