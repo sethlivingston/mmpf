@@ -31,19 +31,19 @@ install_to_destination() {
   mkdir -p "$skills_dst"
 
   # Clean up existing mmpf-* directories for this runtime only
-  for existing_skill in "$skills_dst"/mmpf-*; do
-    [ -d "$existing_skill" ] && rm -rf "$existing_skill"
-  done
+  # Use find to safely handle cases where no matches exist
+  find "$skills_dst" -maxdepth 1 -type d -name "mmpf-*" -exec rm -rf {} + 2>/dev/null || true
 
   local installed=0
-  for skill_dir in "$SKILLS_SRC"/mmpf-*; do
+  # Use find to locate skills and check they are directories
+  find "$SKILLS_SRC" -maxdepth 1 -type d -name "mmpf-*" | sort | while read -r skill_dir; do
     skill_name="$(basename "$skill_dir")"
     target="$skills_dst/$skill_name"
 
     cp -r "$skill_dir" "$target"
 
-    # Copy shared references into each installed skill
-    if [ -d "$SHARED_REFS" ]; then
+    # Copy shared references into each installed skill (if any .md files exist)
+    if [ -d "$SHARED_REFS" ] && [ -n "$(find "$SHARED_REFS" -maxdepth 1 -name "*.md" -type f)" ]; then
       mkdir -p "$target/references"
       cp "$SHARED_REFS"/*.md "$target/references/"
     fi
@@ -51,7 +51,9 @@ install_to_destination() {
     echo "  Installed $skill_name to $dest_name"
     installed=$((installed + 1))
   done
-
+  
+  # Get count of installed skills using find
+  installed=$(find "$skills_dst" -maxdepth 1 -type d -name "mmpf-*" | wc -l)
   echo "Done. $installed MMPF skills installed to $skills_dst"
 }
 

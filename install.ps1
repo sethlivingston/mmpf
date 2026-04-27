@@ -38,17 +38,27 @@ function Install-ToDestination {
     }
 
     $installed = 0
-    Get-ChildItem -Path $SkillsSrc -Directory -Filter "mmpf-*" | ForEach-Object {
+    # Get all directories matching mmpf-* and process each
+    $skillDirs = @(Get-ChildItem -Path $SkillsSrc -Directory -Filter "mmpf-*" -ErrorAction SilentlyContinue)
+    
+    if ($skillDirs.Count -eq 0) {
+        Write-Host "Warning: No MMPF skills found in $SkillsSrc"
+    }
+    
+    $skillDirs | ForEach-Object {
         $target = Join-Path $SkillsDst $_.Name
         Copy-Item -Recurse $_.FullName $target
 
-        # Copy shared references into each installed skill
+        # Copy shared references into each installed skill (if any .md files exist)
         if (Test-Path $SharedRefs) {
-            $refsTarget = Join-Path $target "references"
-            if (-not (Test-Path $refsTarget)) {
-                New-Item -ItemType Directory -Path $refsTarget -Force | Out-Null
+            $mdFiles = @(Get-ChildItem -Path $SharedRefs -Filter "*.md" -File -ErrorAction SilentlyContinue)
+            if ($mdFiles.Count -gt 0) {
+                $refsTarget = Join-Path $target "references"
+                if (-not (Test-Path $refsTarget)) {
+                    New-Item -ItemType Directory -Path $refsTarget -Force | Out-Null
+                }
+                Copy-Item (Join-Path $SharedRefs "*.md") $refsTarget
             }
-            Copy-Item (Join-Path $SharedRefs "*.md") $refsTarget
         }
 
         Write-Host "  Installed $($_.Name) to $DestinationName"
